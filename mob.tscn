@@ -1,0 +1,82 @@
+[gd_scene load_steps=10 format=3 uid="uid://djkcv0c4htgre"]
+
+[ext_resource type="Script" path="res://mob.gd" id="1_8jk27"]
+[ext_resource type="Texture2D" uid="uid://be4s525xe2ryt" path="res://Assets/Prototype_Character.png" id="1_qayqh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5jtco"]
+atlas = ExtResource("1_qayqh")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cikia"]
+atlas = ExtResource("1_qayqh")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7gt8g"]
+atlas = ExtResource("1_qayqh")
+region = Rect2(32, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rl1i2"]
+atlas = ExtResource("1_qayqh")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xyifm"]
+atlas = ExtResource("1_qayqh")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5nmsb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5jtco")
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cikia")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"hurt",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7gt8g")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rl1i2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xyifm")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 4.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rgoba"]
+radius = 4.8
+
+[node name="Mob" type="CharacterBody2D"]
+modulate = Color(1, 0.634888, 0.579015, 1)
+scale = Vector2(2.5, 2.5)
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_8jk27")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+sprite_frames = SubResource("SpriteFrames_5nmsb")
+animation = &"hurt"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3.2)
+shape = SubResource("CircleShape2D_rgoba")

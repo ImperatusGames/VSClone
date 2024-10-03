@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://bgjjcolik7mef"]
+
+[ext_resource type="Texture2D" uid="uid://qde8o54mvvq6" path="res://Assets/FF6 Edgar Crossbow(1).png" id="1_iy3je"]
+[ext_resource type="Script" path="res://crossbow.gd" id="1_t38w7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tkj3f"]
+radius = 122.004
+
+[node name="Crossbow" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_t38w7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_tkj3f")
+
+[node name="WeaponPivot" type="Marker2D" parent="."]
+
+[node name="Crossbow" type="Sprite2D" parent="WeaponPivot"]
+position = Vector2(18, -1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_iy3je")
+
+[node name="ShootingPoint" type="Marker2D" parent="WeaponPivot/Crossbow"]
+unique_name_in_owner = true
+position = Vector2(14, 1)
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
