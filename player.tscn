@@ -103,7 +103,22 @@ offset_left = -19.0
 offset_top = -41.0
 offset_right = 19.0
 offset_bottom = -35.0
+theme_override_font_sizes/font_size = 5
 theme_override_styles/background = SubResource("StyleBoxFlat_h48oy")
 theme_override_styles/fill = SubResource("StyleBoxFlat_tyx6q")
 value = 100.0
 show_percentage = false
+
+[node name="HPLabel" type="Label" parent="ProgressBar"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.414
+anchor_bottom = 1.0
+offset_top = -3.0
+offset_right = 22.268
+offset_bottom = 3.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+horizontal_alignment = 1
+vertical_alignment = 1

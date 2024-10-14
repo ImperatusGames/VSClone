@@ -7,6 +7,9 @@ func spawn_mob():
 	%PathFollow2D.progress_ratio = randf()
 	new_mob.global_position = %PathFollow2D.global_position
 	add_child(new_mob)
+	if %Timer.wait_time > 0.3:
+		%Timer.wait_time -= 0.2
+		print(str(%Timer.wait_time))
 
 
 func _on_timer_timeout() -> void:

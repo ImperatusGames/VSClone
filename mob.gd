@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
-var health = 3
+var health = 1
+var experience = 1
 
 @onready var player = get_node("/root/Game/Player")
 
@@ -23,4 +24,5 @@ func take_damage():
 	#%AnimatedSprite2D.play("walk")
 	
 	if health == 0:
+		player.experience += experience
 		queue_free()
