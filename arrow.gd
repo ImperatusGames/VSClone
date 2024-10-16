@@ -1,6 +1,9 @@
 extends Area2D
 
 var travelled_distance = 0
+var pierce = false
+var pierce_count = 0
+var max_pierces = 0
 
 func _physics_process(delta: float) -> void:
 	const SPEED = 500
@@ -16,6 +19,13 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	queue_free()
+	if pierce == false:
+		queue_free()
+	else:
+		if pierce_count == max_pierces:
+			queue_free()
+		else:
+			pierce_count + 1
+		
 	if body.has_method("take_damage"):
 		body.take_damage()
