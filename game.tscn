@@ -91,5 +91,27 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 108
 text = "Game Over"
 
+[node name="RoundTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 60.0
+autostart = true
+
+[node name="RoundTimerCountdown" type="Label" parent="RoundTimer"]
+unique_name_in_owner = true
+top_level = true
+light_mask = 0
+visibility_layer = 16384
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -57.5
+offset_right = 57.5
+offset_bottom = 57.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 24
+
 [connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="RoundTimer" to="." method="_on_round_timer_timeout"]

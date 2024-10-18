@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://346ulwslh7pq"]
+[gd_scene load_steps=15 format=3 uid="uid://346ulwslh7pq"]
 
 [ext_resource type="Texture2D" uid="uid://be4s525xe2ryt" path="res://Assets/Prototype_Character.png" id="1_5the8"]
 [ext_resource type="Script" path="res://player.gd" id="1_jqyth"]
 [ext_resource type="PackedScene" uid="uid://bgjjcolik7mef" path="res://crossbow.tscn" id="3_7bka7"]
+[ext_resource type="PackedScene" uid="uid://bn6etsk2jtqtw" path="res://orb.tscn" id="4_n356v"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p2eey"]
 atlas = ExtResource("1_5the8")
@@ -122,3 +123,5 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 8
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Orb" parent="." instance=ExtResource("4_n356v")]

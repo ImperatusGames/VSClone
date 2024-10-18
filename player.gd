@@ -1,11 +1,12 @@
 extends CharacterBody2D
 
 signal health_depleted
+signal level_up
 
 var max_health = 100
 var current_health = max_health
 var experience = 0
-var level = 1
+@export var level = 1
 
 @export var speed = 300.0
 # var screen_size
@@ -16,6 +17,7 @@ var level = 1
 
 func check_experience() -> void:
 	if experience == level * 5:
+		level_up.emit()
 		level += 1
 		max_health += 5
 		current_health = max_health
