@@ -4,7 +4,7 @@ signal health_depleted
 signal level_up
 
 var max_health = 100
-var current_health = max_health
+@onready var current_health: int = max_health
 var experience = 0
 @export var level = 1
 
@@ -16,7 +16,8 @@ var experience = 0
 # 	screen_size = get_viewport_rect().size
 
 func check_experience() -> void:
-	if experience == level * 5:
+	%ProgressBar2.value = experience % 5
+	if experience >= level * 5:
 		level_up.emit()
 		level += 1
 		max_health += 5
@@ -27,6 +28,7 @@ func check_experience() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	%HPLabel.text = str(int(current_health))
+	%XPLabel.text = str(int(level))
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	velocity = direction * speed
 	move_and_slide()
