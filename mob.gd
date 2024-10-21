@@ -33,5 +33,6 @@ func take_damage():
 	#%AnimatedSprite2D.play("walk")
 	
 	if health == 0:
+		player.experience += 1
 		drop_chance()
 		queue_free()

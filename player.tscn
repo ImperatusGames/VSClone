@@ -1,9 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://346ulwslh7pq"]
+[gd_scene load_steps=13 format=3 uid="uid://346ulwslh7pq"]
 
 [ext_resource type="Texture2D" uid="uid://be4s525xe2ryt" path="res://Assets/Prototype_Character.png" id="1_5the8"]
 [ext_resource type="Script" path="res://player.gd" id="1_jqyth"]
 [ext_resource type="PackedScene" uid="uid://bgjjcolik7mef" path="res://crossbow.tscn" id="3_7bka7"]
-[ext_resource type="PackedScene" uid="uid://bn6etsk2jtqtw" path="res://orb.tscn" id="4_n356v"]
+[ext_resource type="PackedScene" path="res://orb.tscn" id="4_n356v"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p2eey"]
 atlas = ExtResource("1_5the8")
@@ -59,20 +59,6 @@ radius = 5.09902
 [sub_resource type="CircleShape2D" id="CircleShape2D_71hjn"]
 radius = 6.08276
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h48oy"]
-bg_color = Color(0.162066, 0.162066, 0.162065, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tyx6q"]
-bg_color = Color(0, 1, 0, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_jqyth")
 
@@ -97,31 +83,5 @@ collision_mask = 2
 position = Vector2(0, 3)
 shape = SubResource("CircleShape2D_71hjn")
 debug_color = Color(0.977619, 0, 0.402692, 0.42)
-
-[node name="ProgressBar" type="ProgressBar" parent="."]
-unique_name_in_owner = true
-offset_left = -19.0
-offset_top = -41.0
-offset_right = 19.0
-offset_bottom = -35.0
-theme_override_font_sizes/font_size = 5
-theme_override_styles/background = SubResource("StyleBoxFlat_h48oy")
-theme_override_styles/fill = SubResource("StyleBoxFlat_tyx6q")
-value = 100.0
-show_percentage = false
-
-[node name="HPLabel" type="Label" parent="ProgressBar"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.414
-anchor_bottom = 1.0
-offset_top = -3.0
-offset_right = 22.268
-offset_bottom = 3.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 8
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="Orb" parent="." instance=ExtResource("4_n356v")]

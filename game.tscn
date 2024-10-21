@@ -1,14 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://dvhnos4x0ie71"]
+[gd_scene load_steps=8 format=3 uid="uid://dvhnos4x0ie71"]
 
 [ext_resource type="PackedScene" uid="uid://346ulwslh7pq" path="res://player.tscn" id="1_h4cko"]
 [ext_resource type="Script" path="res://game.gd" id="1_nm0j2"]
 [ext_resource type="PackedScene" uid="uid://ch8w802gnsocj" path="res://tree.tscn" id="2_q7oto"]
+[ext_resource type="StyleBox" uid="uid://bxkt5t37u4wd1" path="res://Assets/progressBarBackground.tres" id="4_cvx6j"]
+[ext_resource type="StyleBox" uid="uid://dbqwob0ia5dvx" path="res://Assets/progressBarGreen.tres" id="5_doht0"]
 
 [sub_resource type="Curve2D" id="Curve2D_dbp3h"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, -94, -96, 0, 0, 0, 0, 1268, -95, 0, 0, 0, 0, 1268, 718, 0, 0, 0, 0, -98, 721, 0, 0, 0, 0, -94, -96)
 }
 point_count = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qlmoj"]
+bg_color = Color(0, 0, 0.968627, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
@@ -111,6 +120,73 @@ grow_horizontal = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 24
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer2"]
+unique_name_in_owner = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -327.0
+offset_top = 15.0
+offset_right = -27.0
+offset_bottom = 65.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 5
+theme_override_styles/background = ExtResource("4_cvx6j")
+theme_override_styles/fill = ExtResource("5_doht0")
+step = 1.0
+value = 100.0
+show_percentage = false
+
+[node name="HPLabel" type="Label" parent="CanvasLayer2/ProgressBar"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.414
+anchor_bottom = 1.0
+offset_top = -3.0
+offset_right = 175.8
+offset_bottom = 3.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "Health"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressBar2" type="ProgressBar" parent="CanvasLayer2"]
+unique_name_in_owner = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -327.0
+offset_top = 78.0
+offset_right = -27.0
+offset_bottom = 128.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 5
+theme_override_styles/background = ExtResource("4_cvx6j")
+theme_override_styles/fill = SubResource("StyleBoxFlat_qlmoj")
+max_value = 5.0
+step = 1.0
+value = 3.0
+show_percentage = false
+
+[node name="XPLabel" type="Label" parent="CanvasLayer2/ProgressBar2"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.414
+anchor_bottom = 1.0
+offset_top = -3.0
+offset_right = 176.8
+offset_bottom = 3.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "Level"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
