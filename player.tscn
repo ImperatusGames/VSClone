@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://be4s525xe2ryt" path="res://Assets/Prototype_Character.png" id="1_5the8"]
 [ext_resource type="Script" path="res://player.gd" id="1_jqyth"]
 [ext_resource type="PackedScene" uid="uid://bgjjcolik7mef" path="res://crossbow.tscn" id="3_7bka7"]
-[ext_resource type="PackedScene" path="res://orb.tscn" id="4_n356v"]
+[ext_resource type="PackedScene" uid="uid://bn6etsk2jtqtw" path="res://orb.tscn" id="4_n356v"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p2eey"]
 atlas = ExtResource("1_5the8")

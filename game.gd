@@ -1,7 +1,7 @@
 extends Node2D
 
-func _process(delta: float) -> void:
-	%RoundTimerCountdown.text = str(%RoundTimer.wait_time)
+func _physics_process(delta: float) -> void:
+	update_timer_text()
 
 func spawn_mob():
 	var new_mob = preload("res://mob.tscn").instantiate()
@@ -21,3 +21,7 @@ func _on_player_health_depleted() -> void:
 
 func _on_round_timer_timeout() -> void:
 	get_tree().paused = true
+
+func update_timer_text() -> void:
+	%RoundTimerCountdown.text = str(int(%RoundTimer.time_left))
+	

@@ -3,8 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://346ulwslh7pq" path="res://player.tscn" id="1_h4cko"]
 [ext_resource type="Script" path="res://game.gd" id="1_nm0j2"]
 [ext_resource type="PackedScene" uid="uid://ch8w802gnsocj" path="res://tree.tscn" id="2_q7oto"]
-[ext_resource type="StyleBox" uid="uid://bxkt5t37u4wd1" path="res://Assets/progressBarBackground.tres" id="4_cvx6j"]
-[ext_resource type="StyleBox" uid="uid://dbqwob0ia5dvx" path="res://Assets/progressBarGreen.tres" id="5_doht0"]
+[ext_resource type="StyleBox" path="res://Assets/progressBarBackground.tres" id="4_cvx6j"]
+[ext_resource type="StyleBox" path="res://Assets/progressBarGreen.tres" id="5_doht0"]
 
 [sub_resource type="Curve2D" id="Curve2D_dbp3h"]
 _data = {
@@ -100,27 +100,6 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 108
 text = "Game Over"
 
-[node name="RoundTimer" type="Timer" parent="."]
-unique_name_in_owner = true
-wait_time = 60.0
-autostart = true
-
-[node name="RoundTimerCountdown" type="Label" parent="RoundTimer"]
-unique_name_in_owner = true
-top_level = true
-light_mask = 0
-visibility_layer = 16384
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -57.5
-offset_right = 57.5
-offset_bottom = 57.0
-grow_horizontal = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-theme_override_font_sizes/font_size = 24
-
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 
 [node name="ProgressBar" type="ProgressBar" parent="CanvasLayer2"]
@@ -188,6 +167,27 @@ text = "Level"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="RoundTimer" type="Timer" parent="CanvasLayer2"]
+unique_name_in_owner = true
+wait_time = 60.0
+autostart = true
+
+[node name="RoundTimerCountdown" type="Label" parent="CanvasLayer2/RoundTimer"]
+unique_name_in_owner = true
+top_level = true
+light_mask = 0
+visibility_layer = 16384
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -57.5
+offset_right = 57.5
+offset_bottom = 57.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 24
+
 [connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="timeout" from="RoundTimer" to="." method="_on_round_timer_timeout"]
+[connection signal="timeout" from="CanvasLayer2/RoundTimer" to="." method="_on_round_timer_timeout"]
