@@ -1,7 +1,7 @@
 extends Area2D
 
 func _physics_process(delta: float) -> void:
-	%Marker2D.rotation += 0.01
+	%Marker2D.rotation += 1 * delta
 
 func shoot():
 	const FIREBALL = preload("res://fireball.tscn")
@@ -12,4 +12,4 @@ func shoot():
 
 func _on_timer_timeout() -> void:
 	shoot()
-	print("Fireball spawned")
+	#print("Fireball spawned")

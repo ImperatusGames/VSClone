@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://d2jlncffx26pg"]
+
+[ext_resource type="Script" path="res://angry_mob.gd" id="1_hbc2t"]
+[ext_resource type="Texture2D" uid="uid://be4s525xe2ryt" path="res://Assets/Prototype_Character.png" id="1_k0m7h"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a85g0"]
+atlas = ExtResource("1_k0m7h")
+region = Rect2(0, 288, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jjxi5"]
+atlas = ExtResource("1_k0m7h")
+region = Rect2(32, 288, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dsrcg"]
+atlas = ExtResource("1_k0m7h")
+region = Rect2(64, 288, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lmu46"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a85g0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jjxi5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dsrcg")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 4.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_stdjx"]
+radius = 4.01386
+
+[node name="Angry Mob" type="CharacterBody2D"]
+modulate = Color(0, 1, 0, 1)
+scale = Vector2(4.5, 4.5)
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_hbc2t")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -5)
+sprite_frames = SubResource("SpriteFrames_lmu46")
+animation = &"walk"
+frame_progress = 0.212831
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("CircleShape2D_stdjx")

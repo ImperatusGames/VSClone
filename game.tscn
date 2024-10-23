@@ -3,8 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://346ulwslh7pq" path="res://player.tscn" id="1_h4cko"]
 [ext_resource type="Script" path="res://game.gd" id="1_nm0j2"]
 [ext_resource type="PackedScene" uid="uid://ch8w802gnsocj" path="res://tree.tscn" id="2_q7oto"]
-[ext_resource type="StyleBox" path="res://Assets/progressBarBackground.tres" id="4_cvx6j"]
-[ext_resource type="StyleBox" path="res://Assets/progressBarGreen.tres" id="5_doht0"]
+[ext_resource type="StyleBox" uid="uid://bxkt5t37u4wd1" path="res://Assets/progressBarBackground.tres" id="4_cvx6j"]
+[ext_resource type="StyleBox" uid="uid://dbqwob0ia5dvx" path="res://Assets/progressBarGreen.tres" id="5_doht0"]
 
 [sub_resource type="Curve2D" id="Curve2D_dbp3h"]
 _data = {
@@ -189,5 +189,6 @@ size_flags_vertical = 0
 theme_override_font_sizes/font_size = 24
 
 [connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
+[connection signal="level_up" from="Player" to="." method="_on_player_level_up"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="CanvasLayer2/RoundTimer" to="." method="_on_round_timer_timeout"]
