@@ -73,6 +73,7 @@ shape = SubResource("CircleShape2D_mfo25")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Crossbow" parent="." instance=ExtResource("3_7bka7")]
+unique_name_in_owner = true
 
 [node name="HurtBox" type="Area2D" parent="."]
 unique_name_in_owner = true
@@ -85,3 +86,4 @@ shape = SubResource("CircleShape2D_71hjn")
 debug_color = Color(0.977619, 0, 0.402692, 0.42)
 
 [node name="Orb" parent="." instance=ExtResource("4_n356v")]
+unique_name_in_owner = true

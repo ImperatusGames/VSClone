@@ -50,4 +50,12 @@ func _process(delta: float) -> void:
 	
 	check_experience()
 
-		
+func _on_crossbow_button_pressed() -> void:
+	crossbow_improve()
+
+func crossbow_improve() -> void:
+	if %Crossbow.pierce == false:
+		%Crossbow.pierce = true
+		%Crossbow.max_pierces = 1
+	else:
+		%Crossbow.max_pierces += 1

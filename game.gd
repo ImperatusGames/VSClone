@@ -33,4 +33,9 @@ func update_timer_text() -> void:
 	%RoundTimerCountdown.text = str(int(%RoundTimer.time_left))
 	
 func _on_player_level_up() -> void:
-	pass # Replace with function body.
+	get_tree().paused = true
+	%LevelUpScreen.visible = true
+	
+func _on_crossbow_button_pressed() -> void:
+	%LevelUpScreen.visible = false
+	get_tree().paused = false

@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://dvhnos4x0ie71"]
+[gd_scene load_steps=10 format=3 uid="uid://dvhnos4x0ie71"]
 
 [ext_resource type="PackedScene" uid="uid://346ulwslh7pq" path="res://player.tscn" id="1_h4cko"]
 [ext_resource type="Script" path="res://game.gd" id="1_nm0j2"]
 [ext_resource type="PackedScene" uid="uid://ch8w802gnsocj" path="res://tree.tscn" id="2_q7oto"]
 [ext_resource type="StyleBox" uid="uid://bxkt5t37u4wd1" path="res://Assets/progressBarBackground.tres" id="4_cvx6j"]
 [ext_resource type="StyleBox" uid="uid://dbqwob0ia5dvx" path="res://Assets/progressBarGreen.tres" id="5_doht0"]
+[ext_resource type="Texture2D" uid="uid://qde8o54mvvq6" path="res://Assets/FF6 Edgar Crossbow(1).png" id="6_s3juy"]
+[ext_resource type="Texture2D" uid="uid://c6jphm1nhh26k" path="res://Assets/coin_single.png" id="7_12gl6"]
 
 [sub_resource type="Curve2D" id="Curve2D_dbp3h"]
 _data = {
@@ -188,7 +190,62 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 24
 
+[node name="LevelUpScreen" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+process_mode = 2
+visible = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LevelUpScreen"]
+top_level = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 14.0
+offset_top = 8.0
+offset_right = 16.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="CrossbowButton" type="Button" parent="LevelUpScreen/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Crossbow"
+icon = ExtResource("6_s3juy")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="OrbButton" type="Button" parent="LevelUpScreen/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Orb"
+icon = ExtResource("7_12gl6")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="NewWeapon" type="Button" parent="LevelUpScreen/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Future Option"
+
+[node name="Label" type="Label" parent="LevelUpScreen"]
+top_level = true
+offset_left = 8.0
+offset_top = 600.0
+offset_right = 1152.0
+offset_bottom = 656.0
+text = "Select an Upgrade to Level Up!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
 [connection signal="level_up" from="Player" to="." method="_on_player_level_up"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="CanvasLayer2/RoundTimer" to="." method="_on_round_timer_timeout"]
+[connection signal="pressed" from="LevelUpScreen/HBoxContainer/CrossbowButton" to="." method="_on_crossbow_button_pressed"]
+[connection signal="pressed" from="LevelUpScreen/HBoxContainer/CrossbowButton" to="Player" method="_on_crossbow_button_pressed"]
