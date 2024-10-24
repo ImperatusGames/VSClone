@@ -1,5 +1,6 @@
 extends Area2D
 
+var upgrade_level = 1
 var pierce = false
 var max_pierces = 0
 

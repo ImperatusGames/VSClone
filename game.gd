@@ -37,5 +37,14 @@ func _on_player_level_up() -> void:
 	%LevelUpScreen.visible = true
 	
 func _on_crossbow_button_pressed() -> void:
+	level_up_complete()
+
+func _on_orb_button_pressed() -> void:
+	level_up_complete()
+
+func _on_speed_button_pressed() -> void:
+	level_up_complete()
+
+func level_up_complete() -> void:
 	%LevelUpScreen.visible = false
 	get_tree().paused = false

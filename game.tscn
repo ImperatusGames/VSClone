@@ -228,10 +228,10 @@ icon_alignment = 1
 vertical_icon_alignment = 0
 expand_icon = true
 
-[node name="NewWeapon" type="Button" parent="LevelUpScreen/HBoxContainer"]
+[node name="SpeedButton" type="Button" parent="LevelUpScreen/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Future Option"
+text = "Improve Speed"
 
 [node name="Label" type="Label" parent="LevelUpScreen"]
 top_level = true
@@ -249,3 +249,7 @@ vertical_alignment = 1
 [connection signal="timeout" from="CanvasLayer2/RoundTimer" to="." method="_on_round_timer_timeout"]
 [connection signal="pressed" from="LevelUpScreen/HBoxContainer/CrossbowButton" to="." method="_on_crossbow_button_pressed"]
 [connection signal="pressed" from="LevelUpScreen/HBoxContainer/CrossbowButton" to="Player" method="_on_crossbow_button_pressed"]
+[connection signal="pressed" from="LevelUpScreen/HBoxContainer/OrbButton" to="." method="_on_orb_button_pressed"]
+[connection signal="pressed" from="LevelUpScreen/HBoxContainer/OrbButton" to="Player" method="_on_orb_button_pressed"]
+[connection signal="pressed" from="LevelUpScreen/HBoxContainer/SpeedButton" to="." method="_on_speed_button_pressed"]
+[connection signal="pressed" from="LevelUpScreen/HBoxContainer/SpeedButton" to="Player" method="_on_speed_button_pressed"]

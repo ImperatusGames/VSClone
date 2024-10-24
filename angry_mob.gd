@@ -17,12 +17,12 @@ func drop_chance():
 	var new_coin = preload("res://experience_coin.tscn").instantiate()
 	new_coin.global_position = self.global_position
 	var coin_spawn = randf()
-	print(coin_spawn)
+	#print(coin_spawn)
 	if coin_spawn <= 0.25:
 		get_parent().add_child(new_coin)
 	
-func take_damage():
-	health -= 1
+func take_damage(damage):
+	health -= damage
 	#%AnimatedSprite2D.play("hurt")
 	#%AnimatedSprite2D.play("walk")
 	

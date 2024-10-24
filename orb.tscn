@@ -24,6 +24,7 @@ scale = Vector2(0.75, 0.75)
 texture = ExtResource("1_kc65y")
 
 [node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
 wait_time = 2.0
 autostart = true
 
