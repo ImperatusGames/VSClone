@@ -22,13 +22,6 @@ func _on_timer_timeout() -> void:
 	spawn_mob()
 	spawn_second_mob()
 
-func _on_player_health_depleted() -> void:
-	%GameOver.visible = true
-	get_tree().paused = true
-
-func _on_round_timer_timeout() -> void:
-	get_tree().paused = true
-
 func update_timer_text() -> void:
 	%RoundTimerCountdown.text = str(int(%RoundTimer.time_left))
 	
@@ -48,3 +41,30 @@ func _on_speed_button_pressed() -> void:
 func level_up_complete() -> void:
 	%LevelUpScreen.visible = false
 	get_tree().paused = false
+
+#RoundOver
+func _on_round_timer_timeout() -> void:
+	%RoundOver.visible = true
+	%RoundOverLabel.text = "Level Reached: " + str($Player.level)
+	get_tree().paused = true
+
+func _on_continue_button_pressed() -> void:
+	get_tree().paused = false
+	%RoundOver.visible = false
+	%RoundTimer.start(60)
+	
+
+#GameOver
+func _on_player_health_depleted() -> void:
+	%GameOver.visible = true
+	get_tree().paused = true
+
+
+func _on_restart_button_pressed() -> void:
+	get_tree().paused = false
+	%GameOver.visible = false
+	get_tree().reload_current_scene()
+	
+#Quit
+func _on_quit_button_pressed() -> void:
+	get_tree().quit()
