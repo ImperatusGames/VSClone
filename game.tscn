@@ -52,31 +52,24 @@ position = Vector2(-94, -96)
 rotation = 0.000734214
 
 [node name="Tree" parent="." instance=ExtResource("2_q7oto")]
-visible = false
 position = Vector2(383, 209)
 
 [node name="Tree2" parent="." instance=ExtResource("2_q7oto")]
-visible = false
 position = Vector2(292, 515)
 
 [node name="Tree3" parent="." instance=ExtResource("2_q7oto")]
-visible = false
 position = Vector2(575, 523)
 
 [node name="Tree4" parent="." instance=ExtResource("2_q7oto")]
-visible = false
 position = Vector2(884, 575)
 
 [node name="Tree5" parent="." instance=ExtResource("2_q7oto")]
-visible = false
 position = Vector2(673, 296)
 
 [node name="Tree6" parent="." instance=ExtResource("2_q7oto")]
-visible = false
 position = Vector2(1003, 157)
 
 [node name="Tree7" parent="." instance=ExtResource("2_q7oto")]
-visible = false
 position = Vector2(141, 188)
 
 [node name="Timer" type="Timer" parent="."]
