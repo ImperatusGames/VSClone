@@ -3,6 +3,7 @@ extends Area2D
 var upgrade_level = 1
 var pierce = false
 var max_pierces = 0
+var can_slow = false
 
 func _physics_process(delta: float) -> void:
 	var enemies_in_range = get_overlapping_bodies()
@@ -17,8 +18,8 @@ func shoot():
 	new_bullet.global_rotation = %ShootingPoint.global_rotation
 	new_bullet.pierce = pierce
 	new_bullet.max_pierces = max_pierces
+	new_bullet.can_slow = can_slow
 	%ShootingPoint.add_child(new_bullet)
-
 
 func _on_timer_timeout() -> void:
 	shoot()

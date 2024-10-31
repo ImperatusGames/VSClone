@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://orb.gd" id="1_ykat7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_36qo3"]
-radius = 54.0
+radius = 43.0
 
 [node name="Orb" type="Area2D"]
 collision_layer = 0
@@ -19,7 +19,7 @@ unique_name_in_owner = true
 
 [node name="OrbSprite" type="Sprite2D" parent="Marker2D"]
 unique_name_in_owner = true
-position = Vector2(54, 0)
+position = Vector2(43, 0)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("1_kc65y")
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dvhnos4x0ie71"]
+[gd_scene load_steps=11 format=3 uid="uid://dvhnos4x0ie71"]
 
 [ext_resource type="PackedScene" uid="uid://346ulwslh7pq" path="res://player.tscn" id="1_h4cko"]
 [ext_resource type="Script" path="res://game.gd" id="1_nm0j2"]
@@ -13,6 +13,9 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, -94, -96, 0, 0, 0, 0, 1268, -95, 0, 0, 0, 0, 1268, 718, 0, 0, 0, 0, -98, 721, 0, 0, 0, 0, -94, -96)
 }
 point_count = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q71ku"]
+bg_color = Color(0.255659, 0.255659, 0.255659, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qlmoj"]
 bg_color = Color(0, 0, 0.968627, 1)
@@ -49,24 +52,31 @@ position = Vector2(-94, -96)
 rotation = 0.000734214
 
 [node name="Tree" parent="." instance=ExtResource("2_q7oto")]
+visible = false
 position = Vector2(383, 209)
 
 [node name="Tree2" parent="." instance=ExtResource("2_q7oto")]
+visible = false
 position = Vector2(292, 515)
 
 [node name="Tree3" parent="." instance=ExtResource("2_q7oto")]
+visible = false
 position = Vector2(575, 523)
 
 [node name="Tree4" parent="." instance=ExtResource("2_q7oto")]
+visible = false
 position = Vector2(884, 575)
 
 [node name="Tree5" parent="." instance=ExtResource("2_q7oto")]
+visible = false
 position = Vector2(673, 296)
 
 [node name="Tree6" parent="." instance=ExtResource("2_q7oto")]
+visible = false
 position = Vector2(1003, 157)
 
 [node name="Tree7" parent="." instance=ExtResource("2_q7oto")]
+visible = false
 position = Vector2(141, 188)
 
 [node name="Timer" type="Timer" parent="."]
@@ -74,37 +84,106 @@ unique_name_in_owner = true
 wait_time = 2.5
 autostart = true
 
-[node name="GameOver" type="CanvasLayer" parent="."]
+[node name="RoundOver" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
+process_mode = 2
 visible = false
 
-[node name="ColorRect" type="ColorRect" parent="GameOver"]
+[node name="PanelContainer" type="PanelContainer" parent="RoundOver"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.588235)
+theme_override_styles/panel = SubResource("StyleBoxFlat_q71ku")
 
-[node name="Label" type="Label" parent="GameOver/ColorRect"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -43.5
-offset_top = -11.5
-offset_right = 43.5
-offset_bottom = 11.5
+[node name="MarginContainer" type="MarginContainer" parent="RoundOver/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 150
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="Rows" type="VBoxContainer" parent="RoundOver/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="RoundOverLabel" type="Label" parent="RoundOver/PanelContainer/MarginContainer/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 108
+text = "Round Over"
+horizontal_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="RoundOver/PanelContainer/MarginContainer/Rows"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RoundOver/PanelContainer/MarginContainer/Rows/CenterContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="ContinueButton" type="Button" parent="RoundOver/PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Continue"
+
+[node name="QuitButton" type="Button" parent="RoundOver/PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Quit"
+
+[node name="GameOver" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+process_mode = 2
+visible = false
+
+[node name="PanelContainer" type="PanelContainer" parent="GameOver"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_q71ku")
+
+[node name="MarginContainer" type="MarginContainer" parent="GameOver/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 150
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="Rows" type="VBoxContainer" parent="GameOver/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="GameOverLabel" type="Label" parent="GameOver/PanelContainer/MarginContainer/Rows"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 108
 text = "Game Over"
+horizontal_alignment = 1
 
-[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="GameOver/PanelContainer/MarginContainer/Rows"]
+layout_mode = 2
 
-[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOver/PanelContainer/MarginContainer/Rows/CenterContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="RestartButton" type="Button" parent="GameOver/PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Restart"
+
+[node name="QuitButton" type="Button" parent="GameOver/PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Quit"
+
+[node name="HPXPBars" type="CanvasLayer" parent="."]
+
+[node name="ProgressBar" type="ProgressBar" parent="HPXPBars"]
 unique_name_in_owner = true
 anchors_preset = 1
 anchor_left = 1.0
@@ -121,7 +200,7 @@ step = 1.0
 value = 100.0
 show_percentage = false
 
-[node name="HPLabel" type="Label" parent="CanvasLayer2/ProgressBar"]
+[node name="HPLabel" type="Label" parent="HPXPBars/ProgressBar"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
@@ -136,7 +215,7 @@ text = "Health"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ProgressBar2" type="ProgressBar" parent="CanvasLayer2"]
+[node name="ProgressBar2" type="ProgressBar" parent="HPXPBars"]
 unique_name_in_owner = true
 anchors_preset = 1
 anchor_left = 1.0
@@ -154,7 +233,7 @@ step = 1.0
 value = 3.0
 show_percentage = false
 
-[node name="XPLabel" type="Label" parent="CanvasLayer2/ProgressBar2"]
+[node name="XPLabel" type="Label" parent="HPXPBars/ProgressBar2"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
@@ -169,12 +248,12 @@ text = "Level"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="RoundTimer" type="Timer" parent="CanvasLayer2"]
+[node name="RoundTimer" type="Timer" parent="HPXPBars"]
 unique_name_in_owner = true
 wait_time = 60.0
 autostart = true
 
-[node name="RoundTimerCountdown" type="Label" parent="CanvasLayer2/RoundTimer"]
+[node name="RoundTimerCountdown" type="Label" parent="HPXPBars/RoundTimer"]
 unique_name_in_owner = true
 top_level = true
 light_mask = 0
@@ -203,7 +282,7 @@ anchor_bottom = 1.0
 offset_left = 14.0
 offset_top = 8.0
 offset_right = 16.0
-offset_bottom = -48.0
+offset_bottom = -344.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -233,6 +312,45 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Improve Speed"
 
+[node name="HBoxContainer2" type="HBoxContainer" parent="LevelUpScreen"]
+top_level = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = 304.0
+offset_right = 15.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="CrossbowAltButton" type="Button" parent="LevelUpScreen/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Crossbow Alt"
+icon = ExtResource("6_s3juy")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="OrbAltButton" type="Button" parent="LevelUpScreen/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Orb Alt"
+icon = ExtResource("7_12gl6")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="PlayerAltButton" type="Button" parent="LevelUpScreen/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Player Alt"
+
 [node name="Label" type="Label" parent="LevelUpScreen"]
 top_level = true
 offset_left = 8.0
@@ -246,10 +364,18 @@ vertical_alignment = 1
 [connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
 [connection signal="level_up" from="Player" to="." method="_on_player_level_up"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="timeout" from="CanvasLayer2/RoundTimer" to="." method="_on_round_timer_timeout"]
+[connection signal="pressed" from="RoundOver/PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="RoundOver/PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="GameOver/PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="GameOver/PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="timeout" from="HPXPBars/RoundTimer" to="." method="_on_round_timer_timeout"]
 [connection signal="pressed" from="LevelUpScreen/HBoxContainer/CrossbowButton" to="." method="_on_crossbow_button_pressed"]
 [connection signal="pressed" from="LevelUpScreen/HBoxContainer/CrossbowButton" to="Player" method="_on_crossbow_button_pressed"]
 [connection signal="pressed" from="LevelUpScreen/HBoxContainer/OrbButton" to="." method="_on_orb_button_pressed"]
 [connection signal="pressed" from="LevelUpScreen/HBoxContainer/OrbButton" to="Player" method="_on_orb_button_pressed"]
 [connection signal="pressed" from="LevelUpScreen/HBoxContainer/SpeedButton" to="." method="_on_speed_button_pressed"]
 [connection signal="pressed" from="LevelUpScreen/HBoxContainer/SpeedButton" to="Player" method="_on_speed_button_pressed"]
+[connection signal="pressed" from="LevelUpScreen/HBoxContainer2/CrossbowAltButton" to="." method="_on_crossbow_alt_button_pressed"]
+[connection signal="pressed" from="LevelUpScreen/HBoxContainer2/CrossbowAltButton" to="Player" method="_on_crossbow_alt_button_pressed"]
+[connection signal="pressed" from="LevelUpScreen/HBoxContainer2/OrbAltButton" to="." method="_on_orb_alt_button_pressed"]
+[connection signal="pressed" from="LevelUpScreen/HBoxContainer2/OrbAltButton" to="Player" method="_on_orb_alt_button_pressed"]
