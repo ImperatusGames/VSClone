@@ -5,6 +5,7 @@ var pierce = false
 var max_pierces = 0
 var pierce_count = 0
 var damage = 1
+var can_slow = false
 
 func _physics_process(delta: float) -> void:
 	const SPEED = 500
@@ -29,3 +30,9 @@ func _on_body_entered(body: Node2D) -> void:
 		
 	if body.has_method("take_damage"):
 		body.take_damage(damage)
+	
+	if can_slow == true:
+		var slow_chance = randf()
+		if slow_chance <= 0.1:
+			if body.has_method("get_slowed"):
+				body.get_slowed()

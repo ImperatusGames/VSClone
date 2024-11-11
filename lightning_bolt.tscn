@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://y553cnxtqw8s"]
+
+[ext_resource type="Script" path="res://lightning_bolt.gd" id="1_p15wy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lb3ih"]
+size = Vector2(176, 2)
+
+[node name="Lightning Bolt" type="Area2D"]
+script = ExtResource("1_p15wy")
+
+[node name="Line2D" type="Line2D" parent="."]
+unique_name_in_owner = true
+points = PackedVector2Array(0, 0)
+width = 4.0
+default_color = Color(1, 1, 0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Line2D"]
+unique_name_in_owner = true
+position = Vector2(78, 0)
+shape = SubResource("RectangleShape2D_lb3ih")
+one_way_collision = true

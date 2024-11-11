@@ -75,7 +75,20 @@ func orb_improve() -> void:
 		#if %Timer.wait_time >= 0.6:
 			#%Timer.wait_time -= 0.1
 	#print(%Timer.wait_time)
+	
+func orb_spawn() -> void:
+	const ORB = preload("res://orb.tscn")
+	var new_orb = ORB.instantiate()
+	new_orb.global_position = Vector2.ZERO
+	new_orb.global_rotation = %Orb.global_rotation
+	self.add_child(new_orb)
 
 func _on_speed_button_pressed() -> void:
 	speed += 10.0
 	#print(speed)
+
+func _on_orb_alt_button_pressed() -> void:
+	orb_spawn()
+
+func _on_crossbow_alt_button_pressed() -> void:
+	%Crossbow.can_slow = true

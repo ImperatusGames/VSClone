@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://346ulwslh7pq"]
+[gd_scene load_steps=14 format=3 uid="uid://346ulwslh7pq"]
 
 [ext_resource type="Texture2D" uid="uid://be4s525xe2ryt" path="res://Assets/Prototype_Character.png" id="1_5the8"]
 [ext_resource type="Script" path="res://player.gd" id="1_jqyth"]
 [ext_resource type="PackedScene" uid="uid://bgjjcolik7mef" path="res://crossbow.tscn" id="3_7bka7"]
 [ext_resource type="PackedScene" uid="uid://bn6etsk2jtqtw" path="res://orb.tscn" id="4_n356v"]
+[ext_resource type="PackedScene" uid="uid://bc7ihiyqg4nlr" path="res://lightning_orb.tscn" id="5_k6k2i"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p2eey"]
 atlas = ExtResource("1_5the8")
@@ -87,3 +88,6 @@ debug_color = Color(0.977619, 0, 0.402692, 0.42)
 
 [node name="Orb" parent="." instance=ExtResource("4_n356v")]
 unique_name_in_owner = true
+
+[node name="Lightning Orb" parent="." instance=ExtResource("5_k6k2i")]
+visible = false

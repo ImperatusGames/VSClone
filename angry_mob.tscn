@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://d2jlncffx26pg"]
+[gd_scene load_steps=9 format=3 uid="uid://d2jlncffx26pg"]
 
 [ext_resource type="Script" path="res://angry_mob.gd" id="1_hbc2t"]
 [ext_resource type="Texture2D" uid="uid://be4s525xe2ryt" path="res://Assets/Prototype_Character.png" id="1_k0m7h"]
@@ -35,6 +35,8 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_stdjx"]
 radius = 4.01386
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i6n0f"]
+
 [node name="Angry Mob" type="CharacterBody2D"]
 modulate = Color(0, 1, 0, 1)
 scale = Vector2(4.5, 4.5)
@@ -52,3 +54,21 @@ frame_progress = 0.212831
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -2)
 shape = SubResource("CircleShape2D_stdjx")
+
+[node name="HPBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+visible = false
+offset_left = -5.33333
+offset_top = -16.0
+offset_right = 15.6667
+offset_bottom = -12.0
+scale = Vector2(0.5, 0.5)
+theme_override_styles/background = SubResource("StyleBoxFlat_i6n0f")
+show_percentage = false
+
+[node name="SlowTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 2.0
+one_shot = true
+
+[connection signal="timeout" from="SlowTimer" to="." method="_on_slow_timer_timeout"]
