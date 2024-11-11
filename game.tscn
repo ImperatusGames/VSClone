@@ -174,16 +174,6 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "Quit"
 
-[node name="RestartButton2" type="Button" parent="GameOver/PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 36
-text = "Restart"
-
-[node name="QuitButton2" type="Button" parent="GameOver/PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 36
-text = "Quit"
-
 [node name="HPXPBars" type="CanvasLayer" parent="."]
 
 [node name="ProgressBar" type="ProgressBar" parent="HPXPBars"]
@@ -272,8 +262,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 24
 
-[node name="HPXPBars2" type="CanvasLayer" parent="."]
-
 [node name="LevelUpScreen" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 process_mode = 2
@@ -287,7 +275,7 @@ anchor_bottom = 1.0
 offset_left = 14.0
 offset_top = 8.0
 offset_right = 16.0
-offset_bottom = -344.0
+offset_bottom = -48.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -316,45 +304,6 @@ expand_icon = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Improve Speed"
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="LevelUpScreen"]
-top_level = true
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 15.0
-offset_top = 304.0
-offset_right = 15.0
-offset_bottom = -64.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-alignment = 1
-
-[node name="CrossbowAltButton" type="Button" parent="LevelUpScreen/HBoxContainer2"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Crossbow Alt"
-icon = ExtResource("6_s3juy")
-icon_alignment = 1
-vertical_icon_alignment = 0
-expand_icon = true
-
-[node name="OrbAltButton" type="Button" parent="LevelUpScreen/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Orb Alt"
-icon = ExtResource("7_12gl6")
-icon_alignment = 1
-vertical_icon_alignment = 0
-expand_icon = true
-
-[node name="PlayerAltButton" type="Button" parent="LevelUpScreen/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Player Alt"
 
 [node name="Label" type="Label" parent="LevelUpScreen"]
 top_level = true
@@ -435,7 +384,3 @@ autowrap_mode = 3
 [connection signal="pressed" from="LevelUpScreen/HBoxContainer/OrbButton" to="Player" method="_on_orb_button_pressed"]
 [connection signal="pressed" from="LevelUpScreen/HBoxContainer/SpeedButton" to="." method="_on_speed_button_pressed"]
 [connection signal="pressed" from="LevelUpScreen/HBoxContainer/SpeedButton" to="Player" method="_on_speed_button_pressed"]
-[connection signal="pressed" from="LevelUpScreen/HBoxContainer2/CrossbowAltButton" to="." method="_on_crossbow_alt_button_pressed"]
-[connection signal="pressed" from="LevelUpScreen/HBoxContainer2/CrossbowAltButton" to="Player" method="_on_crossbow_alt_button_pressed"]
-[connection signal="pressed" from="LevelUpScreen/HBoxContainer2/OrbAltButton" to="." method="_on_orb_alt_button_pressed"]
-[connection signal="pressed" from="LevelUpScreen/HBoxContainer2/OrbAltButton" to="Player" method="_on_orb_alt_button_pressed"]
