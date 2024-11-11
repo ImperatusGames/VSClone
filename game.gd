@@ -69,10 +69,8 @@ func _on_restart_button_pressed() -> void:
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
 
-
 func _on_orb_alt_button_pressed() -> void:
 	level_up_complete()
-
 
 func _on_crossbow_alt_button_pressed() -> void:
 	%CrossbowAltButton.visible = false
