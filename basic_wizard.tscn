@@ -1,0 +1,75 @@
+[gd_scene load_steps=8 format=3 uid="uid://fik3wknptdap"]
+
+[ext_resource type="Script" path="res://basic_wizard.gd" id="1_jtbnw"]
+[ext_resource type="Texture2D" uid="uid://be4s525xe2ryt" path="res://Assets/Prototype_Character.png" id="1_uv5fh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4xdev"]
+atlas = ExtResource("1_uv5fh")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5mi6i"]
+atlas = ExtResource("1_uv5fh")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qmpfv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4xdev")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5mi6i")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 4.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yqcbg"]
+radius = 18.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ivbgv"]
+
+[node name="Basic Wizard" type="CharacterBody2D"]
+modulate = Color(0, 1, 1, 1)
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_jtbnw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(3.5, 3.5)
+sprite_frames = SubResource("SpriteFrames_qmpfv")
+animation = &"walk"
+frame_progress = 0.139522
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 7)
+shape = SubResource("CircleShape2D_yqcbg")
+
+[node name="HPBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+visible = false
+offset_left = -5.33333
+offset_top = -16.0
+offset_right = 15.6667
+offset_bottom = -12.0
+scale = Vector2(0.5, 0.5)
+theme_override_styles/background = SubResource("StyleBoxFlat_ivbgv")
+show_percentage = false
+
+[node name="FireballTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 1.5
+autostart = true
+
+[node name="Marker2D" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, 7)
+
+[node name="SlowTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 2.0
+one_shot = true
+
+[connection signal="timeout" from="FireballTimer" to="." method="_on_fireball_timer_timeout"]
+[connection signal="timeout" from="SlowTimer" to="." method="_on_slow_timer_timeout"]

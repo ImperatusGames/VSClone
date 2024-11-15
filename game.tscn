@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dvhnos4x0ie71"]
+[gd_scene load_steps=12 format=3 uid="uid://dvhnos4x0ie71"]
 
 [ext_resource type="PackedScene" uid="uid://346ulwslh7pq" path="res://player.tscn" id="1_h4cko"]
 [ext_resource type="Script" path="res://game.gd" id="1_nm0j2"]
@@ -7,6 +7,7 @@
 [ext_resource type="StyleBox" uid="uid://dbqwob0ia5dvx" path="res://Assets/progressBarGreen.tres" id="5_doht0"]
 [ext_resource type="Texture2D" uid="uid://qde8o54mvvq6" path="res://Assets/FF6 Edgar Crossbow(1).png" id="6_s3juy"]
 [ext_resource type="Texture2D" uid="uid://c6jphm1nhh26k" path="res://Assets/coin_single.png" id="7_12gl6"]
+[ext_resource type="PackedScene" uid="uid://fik3wknptdap" path="res://basic_wizard.tscn" id="8_j4u26"]
 
 [sub_resource type="Curve2D" id="Curve2D_dbp3h"]
 _data = {
@@ -316,6 +317,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="StartScreen" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="HBoxContainer" type="HBoxContainer" parent="StartScreen"]
 top_level = true
@@ -370,6 +372,17 @@ The Fire orb orbits the player and shoots fireballs, the Ice orb tracks the near
 horizontal_alignment = 1
 autowrap_mode = 3
 
+[node name="Basic Wizard" parent="." instance=ExtResource("8_j4u26")]
+position = Vector2(1568, 64)
+
+[node name="AngryMobTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 3.5
+
+[node name="BasicWizardTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 5.0
+
 [connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
 [connection signal="level_up" from="Player" to="." method="_on_player_level_up"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
@@ -384,3 +397,5 @@ autowrap_mode = 3
 [connection signal="pressed" from="LevelUpScreen/HBoxContainer/OrbButton" to="Player" method="_on_orb_button_pressed"]
 [connection signal="pressed" from="LevelUpScreen/HBoxContainer/SpeedButton" to="." method="_on_speed_button_pressed"]
 [connection signal="pressed" from="LevelUpScreen/HBoxContainer/SpeedButton" to="Player" method="_on_speed_button_pressed"]
+[connection signal="timeout" from="AngryMobTimer" to="." method="_on_angry_mob_timer_timeout"]
+[connection signal="timeout" from="BasicWizardTimer" to="." method="_on_basic_wizard_timer_timeout"]

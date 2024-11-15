@@ -8,7 +8,7 @@
 [node name="Fireball" type="Area2D"]
 top_level = true
 collision_layer = 0
-collision_mask = 3
+collision_mask = 0
 script = ExtResource("1_5wu4p")
 
 [node name="Icon" type="Sprite2D" parent="."]

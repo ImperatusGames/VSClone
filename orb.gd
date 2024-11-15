@@ -11,6 +11,8 @@ func shoot():
 	var new_fireball = FIREBALL.instantiate()
 	new_fireball.global_position = %OrbSprite.global_position
 	new_fireball.global_rotation = %OrbSprite.global_rotation
+	new_fireball.collision_mask = 1
+	new_fireball.collision_mask = 2
 	new_fireball.damage += damage
 	%OrbSprite.add_child(new_fireball)
 

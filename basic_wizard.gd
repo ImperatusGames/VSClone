@@ -1,10 +1,10 @@
 extends CharacterBody2D
 
-const MAX_HEALTH = 5
+const MAX_HEALTH = 10
 var health = MAX_HEALTH
-var experience = 2
+var experience = 3
 var is_slowed = false
-var is_frozen = false
+var damage = 2
 
 @onready var player = get_node("/root/Game/Player")
 
@@ -14,9 +14,9 @@ func _ready():
 func _physics_process(delta: float) -> void:
 	var direction = global_position.direction_to(player.global_position)
 	if is_slowed == true:
-		velocity = direction * 50.0
+		velocity = direction * 25.0
 	else:
-		velocity = direction * 100.0
+		velocity = direction * 50.0
 	move_and_slide()
 	
 func drop_chance():
@@ -24,7 +24,7 @@ func drop_chance():
 	new_coin.global_position = self.global_position
 	var coin_spawn = randf()
 	#print(coin_spawn)
-	if coin_spawn <= 0.25:
+	if coin_spawn <= 0.12:
 		get_parent().add_child(new_coin)
 	
 func take_damage(damage):
@@ -45,13 +45,18 @@ func take_damage(damage):
 func get_slowed():
 	print("I'm slowed!")
 	is_slowed = true
-	
-func get_frozen():
-	print("I'm frozen!")
-	is_frozen = true
 
 func _on_slow_timer_timeout() -> void:
 	is_slowed = false
 
-func _on_frozen_timer_timeout() -> void:
-	is_frozen = false
+func shoot():
+	const FIREBALL = preload("res://fireball.tscn")
+	var new_fireball = FIREBALL.instantiate()
+	new_fireball.global_position = %Marker2D.global_position
+	new_fireball.global_rotation = %Marker2D.global_rotation
+	new_fireball.collision_mask = 3
+	new_fireball.damage += damage
+	%Marker2D.add_child(new_fireball)
+
+func _on_fireball_timer_timeout() -> void:
+	shoot()

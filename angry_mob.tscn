@@ -71,4 +71,9 @@ unique_name_in_owner = true
 wait_time = 2.0
 one_shot = true
 
+[node name="FrozenTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true
+
 [connection signal="timeout" from="SlowTimer" to="." method="_on_slow_timer_timeout"]
+[connection signal="timeout" from="FrozenTimer" to="." method="_on_frozen_timer_timeout"]

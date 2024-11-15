@@ -1,5 +1,7 @@
 extends Node2D
 
+var round_counter = 1
+
 func _physics_process(delta: float) -> void:
 	update_timer_text()
 
@@ -17,10 +19,15 @@ func spawn_second_mob():
 	%PathFollow2D.progress_ratio = randf()
 	new_mob.global_position = %PathFollow2D.global_position
 	add_child(new_mob)
+	
+func spawn_basic_wizard_mob():
+	var new_mob = preload("res://basic_wizard.tscn").instantiate()
+	%PathFollow2D.progress_ratio = randf()
+	new_mob.global_position = %PathFollow2D.global_position
+	add_child(new_mob)
 
 func _on_timer_timeout() -> void:
 	spawn_mob()
-	spawn_second_mob()
 
 func update_timer_text() -> void:
 	%RoundTimerCountdown.text = str(int(%RoundTimer.time_left))
@@ -52,13 +59,13 @@ func _on_continue_button_pressed() -> void:
 	get_tree().paused = false
 	%RoundOver.visible = false
 	%RoundTimer.start(60)
+	round_tracker()
 	
 
 #GameOver
 func _on_player_health_depleted() -> void:
 	%GameOver.visible = true
 	get_tree().paused = true
-
 
 func _on_restart_button_pressed() -> void:
 	get_tree().paused = false
@@ -76,3 +83,18 @@ func _on_crossbow_alt_button_pressed() -> void:
 	%CrossbowAltButton.visible = false
 	%LevelUpScreen.visible = false
 	get_tree().paused = false
+
+func _on_angry_mob_timer_timeout() -> void:
+	spawn_second_mob()
+
+func _on_basic_wizard_timer_timeout() -> void:
+	spawn_basic_wizard_mob()
+
+func round_tracker():
+	round_counter += 1
+	
+	if round_counter >= 2 && %AngryMobTimer.autostart == false:
+		%AngryMobTimer.autostart = true
+		
+	if round_counter >= 3 && %BasicWizardTimer.autostart == false:
+		%BasicWizardTimer.autostart = true

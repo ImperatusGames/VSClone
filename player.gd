@@ -60,6 +60,7 @@ func _on_crossbow_button_pressed() -> void:
 	crossbow_improve()
 
 func crossbow_improve() -> void:
+	%Crossbow.upgrade_level += 1
 	if %Crossbow.pierce == false:
 		%Crossbow.pierce = true
 		%Crossbow.max_pierces = 1
@@ -91,4 +92,11 @@ func _on_orb_alt_button_pressed() -> void:
 	orb_spawn()
 
 func _on_crossbow_alt_button_pressed() -> void:
-	%Crossbow.can_slow = true
+	if %Crossbow.upgrade_level <= 3:
+		pass
+	elif %Crossbow.can_slow == false:
+		%Crossbow.can_slow = true
+	elif %Crossbow.upgrade_level <= 7 && %Crossbow.can_freeze == false:
+		%Crossbow.can_freeze = true
+	else:
+		pass
