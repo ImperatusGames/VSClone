@@ -53,30 +53,32 @@ position = Vector2(-94, -96)
 rotation = 0.000734214
 
 [node name="Tree" parent="." instance=ExtResource("2_q7oto")]
+visible = false
 position = Vector2(383, 209)
 
 [node name="Tree2" parent="." instance=ExtResource("2_q7oto")]
+visible = false
 position = Vector2(292, 515)
 
 [node name="Tree3" parent="." instance=ExtResource("2_q7oto")]
+visible = false
 position = Vector2(575, 523)
 
 [node name="Tree4" parent="." instance=ExtResource("2_q7oto")]
+visible = false
 position = Vector2(884, 575)
 
 [node name="Tree5" parent="." instance=ExtResource("2_q7oto")]
+visible = false
 position = Vector2(673, 296)
 
 [node name="Tree6" parent="." instance=ExtResource("2_q7oto")]
+visible = false
 position = Vector2(1003, 157)
 
 [node name="Tree7" parent="." instance=ExtResource("2_q7oto")]
+visible = false
 position = Vector2(141, 188)
-
-[node name="Timer" type="Timer" parent="."]
-unique_name_in_owner = true
-wait_time = 2.5
-autostart = true
 
 [node name="RoundOver" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
@@ -175,6 +177,54 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "Quit"
 
+[node name="PauseScreen" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+process_mode = 2
+visible = false
+
+[node name="PanelContainer" type="PanelContainer" parent="PauseScreen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_q71ku")
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseScreen/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 150
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="Rows" type="VBoxContainer" parent="PauseScreen/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="GameOverLabel" type="Label" parent="PauseScreen/PanelContainer/MarginContainer/Rows"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 108
+text = "Paused"
+horizontal_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="PauseScreen/PanelContainer/MarginContainer/Rows"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseScreen/PanelContainer/MarginContainer/Rows/CenterContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="ResumeButton" type="Button" parent="PauseScreen/PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Resume"
+
+[node name="QuitButton" type="Button" parent="PauseScreen/PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Quit"
+
 [node name="HPXPBars" type="CanvasLayer" parent="."]
 
 [node name="ProgressBar" type="ProgressBar" parent="HPXPBars"]
@@ -244,7 +294,7 @@ vertical_alignment = 1
 
 [node name="RoundTimer" type="Timer" parent="HPXPBars"]
 unique_name_in_owner = true
-wait_time = 60.0
+wait_time = 15.0
 autostart = true
 
 [node name="RoundTimerCountdown" type="Label" parent="HPXPBars/RoundTimer"]
@@ -373,7 +423,13 @@ horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="Basic Wizard" parent="." instance=ExtResource("8_j4u26")]
+visible = false
 position = Vector2(1568, 64)
+
+[node name="MobTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 2.5
+autostart = true
 
 [node name="AngryMobTimer" type="Timer" parent="."]
 unique_name_in_owner = true
@@ -383,13 +439,34 @@ wait_time = 3.5
 unique_name_in_owner = true
 wait_time = 5.0
 
+[node name="Score" type="CanvasLayer" parent="."]
+
+[node name="ScoreLabel" type="Label" parent="Score"]
+unique_name_in_owner = true
+light_mask = 0
+visibility_layer = 524288
+offset_left = 24.0
+offset_top = 48.0
+offset_right = 144.0
+offset_bottom = 72.0
+text = "Score: 0"
+
+[node name="RoundLabel" type="Label" parent="Score"]
+unique_name_in_owner = true
+offset_left = 24.0
+offset_top = 16.0
+offset_right = 64.0
+offset_bottom = 39.0
+text = "Round: 1"
+
 [connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
 [connection signal="level_up" from="Player" to="." method="_on_player_level_up"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="RoundOver/PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="RoundOver/PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="GameOver/PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="GameOver/PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="PauseScreen/PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="PauseScreen/PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="timeout" from="HPXPBars/RoundTimer" to="." method="_on_round_timer_timeout"]
 [connection signal="pressed" from="LevelUpScreen/HBoxContainer/CrossbowButton" to="." method="_on_crossbow_button_pressed"]
 [connection signal="pressed" from="LevelUpScreen/HBoxContainer/CrossbowButton" to="Player" method="_on_crossbow_button_pressed"]
@@ -397,5 +474,6 @@ wait_time = 5.0
 [connection signal="pressed" from="LevelUpScreen/HBoxContainer/OrbButton" to="Player" method="_on_orb_button_pressed"]
 [connection signal="pressed" from="LevelUpScreen/HBoxContainer/SpeedButton" to="." method="_on_speed_button_pressed"]
 [connection signal="pressed" from="LevelUpScreen/HBoxContainer/SpeedButton" to="Player" method="_on_speed_button_pressed"]
+[connection signal="timeout" from="MobTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="AngryMobTimer" to="." method="_on_angry_mob_timer_timeout"]
 [connection signal="timeout" from="BasicWizardTimer" to="." method="_on_basic_wizard_timer_timeout"]

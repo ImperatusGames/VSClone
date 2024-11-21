@@ -5,8 +5,10 @@ var health = MAX_HEALTH
 var experience = 3
 var is_slowed = false
 var damage = 2
+var score_value = 3
 
 @onready var player = get_node("/root/Game/Player")
+@onready var game = get_node("/root/Game/")
 
 func _ready():
 	$AnimatedSprite2D.play("walk")
@@ -39,6 +41,7 @@ func take_damage(damage):
 	
 	if health == 0:
 		player.experience += 1
+		game.score_counter += score_value
 		drop_chance()
 		queue_free()
 

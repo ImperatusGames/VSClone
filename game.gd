@@ -1,17 +1,21 @@
 extends Node2D
 
 var round_counter = 1
+var score_counter = 0
 
 func _physics_process(delta: float) -> void:
 	update_timer_text()
+	update_score()
+	if Input.is_action_pressed("ui_cancel"):
+		pause_game()
 
 func spawn_mob():
 	var new_mob = preload("res://mob.tscn").instantiate()
 	%PathFollow2D.progress_ratio = randf()
 	new_mob.global_position = %PathFollow2D.global_position
 	add_child(new_mob)
-	if %Timer.wait_time > 1.0:
-		%Timer.wait_time -= 0.1
+	if %MobTimer.wait_time > 1.0:
+		%MobTimer.wait_time -= 0.1
 		#print(str(%Timer.wait_time))
 		
 func spawn_second_mob():
@@ -51,15 +55,18 @@ func level_up_complete() -> void:
 
 #RoundOver
 func _on_round_timer_timeout() -> void:
+	%RoundTimerCountdown.visible = false
 	%RoundOver.visible = true
 	%RoundOverLabel.text = "Level Reached: " + str($Player.level)
 	get_tree().paused = true
 
 func _on_continue_button_pressed() -> void:
+	%RoundTimerCountdown.visible = true
 	get_tree().paused = false
 	%RoundOver.visible = false
-	%RoundTimer.start(60)
+	%RoundTimer.start(15)
 	round_tracker()
+	%RoundLabel.text = "Round: " + str(round_counter)
 	
 
 #GameOver
@@ -94,7 +101,21 @@ func round_tracker():
 	round_counter += 1
 	
 	if round_counter >= 2 && %AngryMobTimer.autostart == false:
-		%AngryMobTimer.autostart = true
+		%AngryMobTimer.start()
 		
 	if round_counter >= 3 && %BasicWizardTimer.autostart == false:
-		%BasicWizardTimer.autostart = true
+		%BasicWizardTimer.start()
+
+func update_score():
+	%ScoreLabel.text = "Score: " + str(score_counter)
+
+func pause_game():
+	get_tree().paused = true
+	%PauseScreen.visible = true
+
+func resume_game():
+	get_tree().paused = false
+	%PauseScreen.visible = false
+
+func _on_resume_button_pressed() -> void:
+	resume_game()
