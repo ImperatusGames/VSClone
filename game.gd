@@ -3,6 +3,13 @@ extends Node2D
 var round_counter = 1
 var score_counter = 0
 
+func _ready() -> void:
+	print("persist 1")
+	if GameState.persistent_score > 0:
+		score_counter = GameState.persistent_score
+		round_counter = GameState.persistent_rounds
+	%RoundLabel.text = "Round: " + str(round_counter)
+
 func _physics_process(delta: float) -> void:
 	update_timer_text()
 	update_score()
@@ -67,6 +74,11 @@ func _on_continue_button_pressed() -> void:
 	%RoundTimer.start(15)
 	round_tracker()
 	%RoundLabel.text = "Round: " + str(round_counter)
+	#GameState.reset_for_new_game()
+	# Save current upgrades and score before reloading
+	GameState.persistent_score = score_counter
+	GameState.persistent_rounds = round_counter
+	get_tree().reload_current_scene()
 	
 
 #GameOver
@@ -77,6 +89,7 @@ func _on_player_health_depleted() -> void:
 func _on_restart_button_pressed() -> void:
 	get_tree().paused = false
 	%GameOver.visible = false
+	GameState.reset_for_new_game()
 	get_tree().reload_current_scene()
 	
 #Quit

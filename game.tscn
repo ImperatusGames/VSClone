@@ -41,6 +41,7 @@ color = Color(0.509286, 0.509286, 0.509286, 1)
 [node name="Player" parent="." instance=ExtResource("1_h4cko")]
 position = Vector2(589, 332)
 scale = Vector2(3, 3)
+motion_mode = 1
 
 [node name="Path2D" type="Path2D" parent="Player"]
 position = Vector2(-196.333, -110.667)
@@ -53,31 +54,24 @@ position = Vector2(-94, -96)
 rotation = 0.000734214
 
 [node name="Tree" parent="." instance=ExtResource("2_q7oto")]
-visible = false
 position = Vector2(383, 209)
 
 [node name="Tree2" parent="." instance=ExtResource("2_q7oto")]
-visible = false
 position = Vector2(292, 515)
 
 [node name="Tree3" parent="." instance=ExtResource("2_q7oto")]
-visible = false
 position = Vector2(575, 523)
 
 [node name="Tree4" parent="." instance=ExtResource("2_q7oto")]
-visible = false
 position = Vector2(884, 575)
 
 [node name="Tree5" parent="." instance=ExtResource("2_q7oto")]
-visible = false
 position = Vector2(673, 296)
 
 [node name="Tree6" parent="." instance=ExtResource("2_q7oto")]
-visible = false
 position = Vector2(1003, 157)
 
 [node name="Tree7" parent="." instance=ExtResource("2_q7oto")]
-visible = false
 position = Vector2(141, 188)
 
 [node name="RoundOver" type="CanvasLayer" parent="."]
@@ -425,6 +419,7 @@ autowrap_mode = 3
 [node name="Basic Wizard" parent="." instance=ExtResource("8_j4u26")]
 visible = false
 position = Vector2(1568, 64)
+motion_mode = 1
 
 [node name="MobTimer" type="Timer" parent="."]
 unique_name_in_owner = true
