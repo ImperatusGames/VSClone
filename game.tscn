@@ -417,7 +417,6 @@ horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="Basic Wizard" parent="." instance=ExtResource("8_j4u26")]
-visible = false
 position = Vector2(1568, 64)
 motion_mode = 1
 

@@ -13,9 +13,7 @@ var experience = 0
 
 func _ready() -> void:
 	# Apply persistent upgrades if they exist
-	print("persist 0")
 	if GameState.persistent_upgrades["crossbow_level"] > 0:
-		print("persist")
 		%Crossbow.upgrade_level = GameState.persistent_upgrades["crossbow_level"]
 		%Crossbow.pierce = GameState.persistent_upgrades["crossbow_pierce"]
 		%Crossbow.max_pierces = GameState.persistent_upgrades["crossbow_max_pierces"]
@@ -29,6 +27,11 @@ func _ready() -> void:
 		max_health = GameState.persistent_upgrades["player_max_health"]
 		current_health = GameState.persistent_upgrades["player_hp"]
 		experience = GameState.persistent_upgrades["player_exp"]
+		
+		%ProgressBar.max_value = max_health
+		%ProgressBar.value = current_health
+		%ProgressBar2.max_value = level * 5
+		%ProgressBar2.value = experience % (level * 5)
 		
 
 # Called when the node enters the scene tree for the first time.
