@@ -1,142 +1,157 @@
 extends CharacterBody2D
 
+# Signals
 signal health_depleted
 signal level_up
 
-var max_health = 100
-@onready var current_health: int = max_health
-var experience = 0
-@export var level = 1
+# Constants
+const DAMAGE_RATE := 50.0
 
-@export var speed = 300.0
-# var screen_size
+# Configuration
+@export var speed := 300.0
+@export var level := 1
+
+# State
+var max_health := 100
+var experience := 0
+var max_exp := 5
+@onready var current_health: int = max_health
+
+# Child node references
+@onready var health_bar: ProgressBar = %ProgressBar
+@onready var exp_bar: ProgressBar = %ProgressBar2
+@onready var hp_label: Label = %HPLabel
+@onready var xp_label: Label = %XPLabel
+@onready var crossbow: Node = %Crossbow
+@onready var orb: Node = %Orb
 
 func _ready() -> void:
-	# Apply persistent upgrades if they exist
-	if GameState.persistent_upgrades["crossbow_level"] > 0:
-		%Crossbow.upgrade_level = GameState.persistent_upgrades["crossbow_level"]
-		%Crossbow.pierce = GameState.persistent_upgrades["crossbow_pierce"]
-		%Crossbow.max_pierces = GameState.persistent_upgrades["crossbow_max_pierces"]
-		%Crossbow.can_slow = GameState.persistent_upgrades["crossbow_can_slow"]
-		%Crossbow.can_freeze = GameState.persistent_upgrades["crossbow_can_freeze"]
-		
-		%Orb.damage = GameState.persistent_upgrades["orb_damage"]
-		
-		speed = GameState.persistent_upgrades["player_speed"]
-		level = GameState.persistent_upgrades["player_level"]
-		max_health = GameState.persistent_upgrades["player_max_health"]
-		current_health = GameState.persistent_upgrades["player_hp"]
-		experience = GameState.persistent_upgrades["player_exp"]
-		
-		%ProgressBar.max_value = max_health
-		%ProgressBar.value = current_health
-		%ProgressBar2.max_value = level * 5
-		%ProgressBar2.value = experience % (level * 5)
-		
+	_load_persistent_data()
+	_update_ui()
 
-# Called when the node enters the scene tree for the first time.
-# func _ready() -> void:
-# 	screen_size = get_viewport_rect().size
-
-func check_experience() -> void:
-	%ProgressBar2.value = experience % (level * 5)
-	if experience >= level * 5:
-		level += 1
-		max_health += 5
-		current_health = max_health
-		experience = 0
-		%ProgressBar.max_value = max_health
-		%ProgressBar.value = current_health
-		%ProgressBar2.max_value = level * 5
-		%HPLabel.text = "HP: " + str(int(current_health))
-		%XPLabel.text = "Level " + str(int(level))
-		level_up.emit()
-		
-		
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	%HPLabel.text = "HP: " + str(int(current_health))
-	%XPLabel.text = "Level " + str(int(level))
+	_handle_movement()
+	_handle_animation()
+	_handle_combat(delta)
+	_check_experience()
+	_persist_data()
+	_update_ui()
+
+# Private methods for organization
+func _load_persistent_data() -> void:
+	if GameState.player_stats.level > 1 or GameState.player_stats.exp != 0:
+		# Apply crossbow upgrades
+		crossbow.upgrade_level = GameState.weapon_stats.crossbow.level
+		crossbow.pierce = GameState.weapon_stats.crossbow.pierce
+		crossbow.max_pierces = GameState.weapon_stats.crossbow.max_pierces
+		crossbow.can_slow = GameState.weapon_stats.crossbow.can_slow
+		crossbow.can_freeze = GameState.weapon_stats.crossbow.can_freeze
+		
+		# Apply orb upgrades
+		orb.damage = GameState.weapon_stats.orb.damage
+		
+		# Apply player stats
+		speed = GameState.player_stats.speed
+		level = GameState.player_stats.level
+		max_health = GameState.player_stats.max_health
+		max_exp = GameState.player_stats.max_exp
+		current_health = GameState.player_stats.hp
+		experience = GameState.player_stats.exp
+
+func _update_ui() -> void:
+	health_bar.max_value = max_health
+	health_bar.value = current_health
+	exp_bar.max_value = max_exp
+	exp_bar.value = experience
+	hp_label.text = "HP: " + str(int(current_health))
+	xp_label.text = "Level " + str(int(level))
+
+func _handle_movement() -> void:
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	velocity = direction * speed
 	move_and_slide()
-	
-	if velocity.length() > 0:
-		$AnimatedSprite2D.play("walk")
-	
-	else:
-		$AnimatedSprite2D.play("idle")
-		
-	#Todo: Create a damage rate signal that enemies pass a damage value to the player
-	const DAMAGE_RATE = 50.0
+
+func _handle_animation() -> void:
+	$AnimatedSprite2D.play("walk" if velocity.length() > 0 else "idle")
+
+func _handle_combat(delta: float) -> void:
 	var overlapping_mobs = %HurtBox.get_overlapping_bodies()
 	if overlapping_mobs.size() > 0:
 		current_health -= DAMAGE_RATE * overlapping_mobs.size() * delta
-		%ProgressBar.value = current_health
-		#%HPLabel.text = str(int(current_health))
 		if current_health <= 0.0:
 			health_depleted.emit()
-	persistData()
-	check_experience()
 
-func persistData() -> void:	
-	# Save crossbow upgrades
-	GameState.persistent_upgrades["crossbow_level"] = %Crossbow.upgrade_level
-	GameState.persistent_upgrades["crossbow_pierce"] = %Crossbow.pierce
-	GameState.persistent_upgrades["crossbow_max_pierces"] = %Crossbow.max_pierces
-	GameState.persistent_upgrades["crossbow_can_slow"] = %Crossbow.can_slow
-	GameState.persistent_upgrades["crossbow_can_freeze"] = %Crossbow.can_freeze
-	# Save orb upgrades
-	GameState.persistent_upgrades["orb_damage"] = %Orb.damage
+func _check_experience() -> void:
+	if experience >= max_exp:
+		experience = experience - max_exp
+		level += 1
+		max_exp += 5
+		max_health += 5
+		current_health = max_health
+		level_up.emit()
+
+func _persist_data() -> void:
+	var weapon_data = {
+		"crossbow": {
+			"level": crossbow.upgrade_level,
+			"pierce": crossbow.pierce,
+			"max_pierces": crossbow.max_pierces,
+			"can_slow": crossbow.can_slow,
+			"can_freeze": crossbow.can_freeze
+		},
+		"orb": {
+			"damage": orb.damage
+		}
+	}
 	
-	# Save player speed
-	GameState.persistent_upgrades["player_speed"] = speed
-	GameState.persistent_upgrades["player_level"] = level 
-	GameState.persistent_upgrades["player_max_health"] = max_health
-	GameState.persistent_upgrades["player_hp"] = current_health 
-	GameState.persistent_upgrades["player_exp"] = experience
+	var player_data = {
+		"level": level,
+		"hp": current_health,
+		"max_health": max_health,
+		"max_exp": max_exp,
+		"speed": speed,
+		"exp": experience
+	}
+	
+	GameState.save_weapon_stats(weapon_data)
+	GameState.save_player_stats(player_data)
 
-func _on_crossbow_button_pressed() -> void:
-	crossbow_improve()
-
+# Upgrade methods
 func crossbow_improve() -> void:
-	%Crossbow.upgrade_level += 1
-	if %Crossbow.pierce == false:
-		%Crossbow.pierce = true
-		%Crossbow.max_pierces = 1
+	crossbow.upgrade_level += 1
+	if !crossbow.pierce:
+		crossbow.pierce = true
+		crossbow.max_pierces = 1
 	else:
-		%Crossbow.max_pierces += 1
-
-func _on_orb_button_pressed() -> void:
-	orb_improve()
+		crossbow.max_pierces += 1
 
 func orb_improve() -> void:
-	%Orb.damage += 1
-	#if %Orb.upgrade_level >= 4:
-		#if %Timer.wait_time >= 0.6:
-			#%Timer.wait_time -= 0.1
-	#print(%Timer.wait_time)
-	
+	orb.damage += 1
+
 func orb_spawn() -> void:
 	const ORB = preload("res://orb.tscn")
 	var new_orb = ORB.instantiate()
 	new_orb.global_position = Vector2.ZERO
-	new_orb.global_rotation = %Orb.global_rotation
-	self.add_child(new_orb)
+	new_orb.global_rotation = orb.global_rotation
+	add_child(new_orb)
+
+# Signal handlers
+func _on_crossbow_button_pressed() -> void:
+	crossbow_improve()
+
+func _on_orb_button_pressed() -> void:
+	orb_improve()
 
 func _on_speed_button_pressed() -> void:
 	speed += 10.0
-	#print(speed)
 
 func _on_orb_alt_button_pressed() -> void:
 	orb_spawn()
 
 func _on_crossbow_alt_button_pressed() -> void:
-	if %Crossbow.upgrade_level <= 3:
-		pass
-	elif %Crossbow.can_slow == false:
-		%Crossbow.can_slow = true
-	elif %Crossbow.upgrade_level <= 7 && %Crossbow.can_freeze == false:
-		%Crossbow.can_freeze = true
-	else:
-		pass
+	if crossbow.upgrade_level <= 3:
+		return
+	elif !crossbow.can_slow:
+		crossbow.can_slow = true
+	elif crossbow.upgrade_level <= 7 && !crossbow.can_freeze:
+		crossbow.can_freeze = true
