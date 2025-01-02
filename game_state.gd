@@ -36,6 +36,8 @@ var player_stats: Dictionary = {
 
 var weapon_stats: Dictionary = DEFAULT_WEAPON_CONFIG.duplicate(true)
 
+#show option of resetting to default (duplicate weapon stats) or by 
+# manually setting player stats level to 1
 func reset_for_new_game() -> void:
 	persistent_score = 0
 	persistent_rounds = 1

@@ -422,7 +422,8 @@ motion_mode = 1
 
 [node name="MobTimer" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 2.0
+wait_time = 2.5
+autostart = true
 
 [node name="AngryMobTimer" type="Timer" parent="."]
 unique_name_in_owner = true
@@ -467,6 +468,6 @@ text = "Round: 1"
 [connection signal="pressed" from="LevelUpScreen/HBoxContainer/OrbButton" to="Player" method="_on_orb_button_pressed"]
 [connection signal="pressed" from="LevelUpScreen/HBoxContainer/SpeedButton" to="." method="_on_speed_button_pressed"]
 [connection signal="pressed" from="LevelUpScreen/HBoxContainer/SpeedButton" to="Player" method="_on_speed_button_pressed"]
-[connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
+[connection signal="timeout" from="MobTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="AngryMobTimer" to="." method="_on_angry_mob_timer_timeout"]
 [connection signal="timeout" from="BasicWizardTimer" to="." method="_on_basic_wizard_timer_timeout"]
